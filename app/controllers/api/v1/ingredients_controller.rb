@@ -9,41 +9,46 @@ class Api::V1::IngredientsController < ApplicationController
         @ingredient = Ingredient.new(ingredient_params)
         if @ingredient.valid? 
             @ingredient.save 
-            render json: { recipe: IngredientSerializer.new(@ingredient)}
+            render json: { ingredient: IngredientSerializer.new(@ingredient)}
         else 
             render json: { error: "failed to create event"}, status: :not_acceptable 
         end
     end
 
     def show 
-        @ingredient = Recipe.find(params[:id])
+        @ingredient = Ingredient.find(params[:id])
         if @ingredient
             render json: @ingredient 
         else 
-            render json: { error: "That recipe does not exist...yet"}, status: :not_acceptable
+            render json: { error: "That ingredient does not exist...yet"}, status: :not_acceptable
         end
     end
 
+    def edit 
+        @ingredient = Ingredient.find(params[:id])
+        render json: @ingredient
+    end
+
     def update
-        @ingredient = Recipe.find(params[:id])
+        @ingredient = Ingredient.find(params[:id])
         @ingredient.update(ingredient_params)
         render json: @ingredient
     end
 
     def destroy 
-        @ingredient = Recipe.find(params[:id])
+        @ingredient = Ingredient.find(params[:id])
         if @ingredient 
             @ingredient.destroy 
-            render json: {message: "Recipe successfully deleted"}
+            render json: {message: "Ingredient successfully deleted"}
         else 
-            render json: {message: "Failed to destroy recipe"}
+            render json: {message: "Failed to destroy ingredient"}
         end
     end
 
     private 
 
     def ingredient_params 
-        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version)
+        params.require(:ingredient).permit(:recipe_id, :name, :amount)
     end
 
 end

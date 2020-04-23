@@ -24,6 +24,6 @@ class Api::V1::FriendshipController < ApplicationController
         @friendship = current_user.friendships.find(params[:id])
         @friendship.destroy
         render json: {message: "Removed friend"}
-      end
+    end
 
 end
