@@ -6,6 +6,11 @@ class Recipe < ApplicationRecord
 
     has_many :recipes_tags 
     has_many :tags, through: :recipes_tags
+
+    accepts_nested_attributes_for :ingredients 
+    accepts_nested_attributes_for :tags 
+    accepts_nested_attributes_for :steps
+  
     
    
 
