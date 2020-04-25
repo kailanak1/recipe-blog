@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
-    has_secure_password :recovery_password, validations: false
+   
 
     validates :username, uniqueness: { case_sensitive: false }
     validates :username, presence: true
