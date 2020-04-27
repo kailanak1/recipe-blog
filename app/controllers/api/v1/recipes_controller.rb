@@ -12,7 +12,7 @@ class Api::V1::RecipesController < ApplicationController
             @recipe.save 
             render json: { recipe: RecipeSerializer.new(@recipe)}
         else 
-            render json: { error: "failed to create event"}, status: :not_acceptable 
+            render json: { error: "failed to create recipe"}, status: :not_acceptable 
         end
     end
 
