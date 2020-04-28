@@ -11,7 +11,7 @@ class Api::V1::IngredientsController < ApplicationController
             @ingredient.save 
             render json: { ingredient: IngredientSerializer.new(@ingredient)}
         else 
-            render json: { error: "failed to create event"}, status: :not_acceptable 
+            render json: { error: "failed to create ingredient"}, status: :not_acceptable 
         end
     end
 

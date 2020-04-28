@@ -6,8 +6,8 @@ class Api::V1::AuthController < ApplicationController
       #User authenticate comes from BCrypt
       if @user && @user.authenticate(user_login_params[:password])
         # encode token comes from ApplicationController
-        token = encode_token({ user_id: @user.id })
-        render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
+        token = encode_token(@user)
+        render json: { user: UserSerializer.new(@user), jwt: token }
       else
         render json: { message: 'Invalid username or password' }, status: :unauthorized
       end
@@ -15,9 +15,8 @@ class Api::V1::AuthController < ApplicationController
 
     def show
         @user = User.find_by(id: user_id)
-        puts @user
         if logged_in?
-            render json: { id: @user.id, username: @user.username}
+            render json: @user
         else
             render json: { error: 'No user could be found'}, status: 401
         end
