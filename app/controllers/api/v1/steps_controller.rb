@@ -1,18 +1,18 @@
 class Api::V1::StepsController < ApplicationController
 
     def index 
-        @steps = Steps.all 
+        @steps = Step.all 
         render json: @steps
     end
 
     def create 
-        @step = Step.new(step_params)
-        if @step.valid? 
-            @step.save 
+        @step = Step.create(step_params)
+        # if @step.valid? 
+        #     @step.save 
             render json: { Step: StepSerializer.new(@step)}
-        else 
-            render json: { error: "failed to create event"}, status: :not_acceptable 
-        end
+        # else 
+        #     render json: { error: "failed to create event"}, status: :not_acceptable 
+        # end
     end
 
     def show 
@@ -38,7 +38,7 @@ class Api::V1::StepsController < ApplicationController
         @step = Step.find(params[:id])
         if @steps 
             @steps.destroy 
-            render json: {message: "step successfully deleted"}
+            render json: {message: "Step successfully deleted"}
         else 
             render json: {message: "Failed to destroy Step"}
         end

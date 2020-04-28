@@ -9,8 +9,8 @@ class RecipeSerializer < ActiveModel::Serializer
   ActiveModel::SerializableResource.new(self.object.tags,  each_serializer: TagSerializer)
  end
 
- def steps 
-  ActiveModel::SerializableResource.new(self.object.steps,  each_serializer: StepSerializer)
- end
+#  def steps 
+#   ActiveModel::SerializableResource.new(self.object.steps,  each_serializer: StepSerializer)
+#  end
   
 end

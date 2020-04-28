@@ -1,8 +1,10 @@
 class Tag < ApplicationRecord
     has_many :recipes_tags 
-    has_many :recipes, through: :recipes_tag
+    has_many :recipes, through: :recipes_tags
 
     validates :name, presence: true
+
+    accepts_nested_attributes_for :recipes
    
 
 
