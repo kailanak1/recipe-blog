@@ -7,11 +7,29 @@ class Api::V1::RecipesController < ApplicationController
     end
 
     def create 
-        
+      
+        # puts "RECIPE CREATE METHOD"
+        # new_recipe_params = {
+        #     title: params[:title], 
+        #     summary: params[:summary],
+        #     rec_steps: params[:rec_steps],
+        #     rec_tags: params[:rec_tags], 
+        #     user_id: user_id
+        # }
+     
         @recipe = Recipe.new(recipe_params)
+        # @ingredients = params[:ingredients]
+        # for ingredient in @ingredients do 
+        #     ing = Ingredient.create(ingredient)
+        #     @recipe[:ingredients] << ing 
+        #     puts @recipe
+        # end
+        puts "tried to create new recipe"
         if @recipe.valid? 
+            puts "THIS RECIPE IS VALID"
+            
             @recipe.save 
-            render json: { recipe: RecipeSerializer.new(@recipe)}
+            render json: { recipe: RecipeSerializer.new(@recipe), ingredients: @ingredients}
         else 
             render json: { error: "failed to create recipe"}, status: :not_acceptable 
         end
@@ -50,7 +68,7 @@ class Api::V1::RecipesController < ApplicationController
     private 
 
     def recipe_params 
-        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :step)
+        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :rec_tags, :rec_steps)
     end
     
 end

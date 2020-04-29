@@ -1,5 +1,5 @@
 class RecipeSerializer < ActiveModel::Serializer
-  attributes :id, :title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :tags, :steps
+  attributes :id, :title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :tags, :steps, :ingredient_name, :ingredient_amount, :rec_tags, :rec_steps
 
  def ingredients 
   ActiveModel::SerializableResource.new(self.object.ingredients,  each_serializer: IngredientSerializer)
