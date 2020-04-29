@@ -18,11 +18,12 @@ class Api::V1::RecipesController < ApplicationController
         # }
      
         @recipe = Recipe.new(recipe_params)
-        @ingredients = params[:ingredients]
+       
         # for ingredient in @ingredients do 
+        #     puts "DIDOFUD YOUU HIIIIIIT??????? #)(@#*R)($*UROGFUJEWLIU"
         #     ing = Ingredient.create(ingredient)
         #     @recipe[:ingredients] << ing 
-        #     puts "DIDOFUD YOUU HIIIIIIT??????? #)(@#*R)($*UROGFUJEWLIU"
+        #     puts "sdifjlsikfje;jf    ;oej;ria4t9ur;3RFIJEwuf"
         #     puts @recipe
         # end
   
@@ -70,7 +71,7 @@ class Api::V1::RecipesController < ApplicationController
     private 
 
     def recipe_params 
-        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :rec_tags, :rec_steps)
+        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :rec_tags, :rec_steps, :ingredient_name)
     end
     
 end
