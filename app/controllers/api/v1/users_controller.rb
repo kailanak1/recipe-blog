@@ -2,8 +2,8 @@ class Api::V1::UsersController < ApplicationController
     skip_before_action :authorized, only: [:create]
     def profile
       @user = User.find(params[:id])
-      @recipes=@user.recipe.all
-      render json: {user: UserSerializer.new(currentUser)}
+      @recipes=Recipe.where(user_id: params[:id])
+      render json: {user: UserSerializer.new(currentUser), recipes: @recipies}
     end
 
     def create
