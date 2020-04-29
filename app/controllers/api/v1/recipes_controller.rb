@@ -18,18 +18,20 @@ class Api::V1::RecipesController < ApplicationController
         # }
      
         @recipe = Recipe.new(recipe_params)
-        # @ingredients = params[:ingredients]
+        @ingredients = params[:ingredients]
         # for ingredient in @ingredients do 
         #     ing = Ingredient.create(ingredient)
         #     @recipe[:ingredients] << ing 
+        #     puts "DIDOFUD YOUU HIIIIIIT??????? #)(@#*R)($*UROGFUJEWLIU"
         #     puts @recipe
         # end
+  
         puts "tried to create new recipe"
         if @recipe.valid? 
             puts "THIS RECIPE IS VALID"
             
             @recipe.save 
-            render json: { recipe: RecipeSerializer.new(@recipe), ingredients: @ingredients}
+            render json: { recipe: RecipeSerializer.new(@recipe),  ingredients: @ingredients}
         else 
             render json: { error: "failed to create recipe"}, status: :not_acceptable 
         end
