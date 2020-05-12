@@ -1,4 +1,6 @@
 class Recipe < ApplicationRecord
+    include Rails.application.routes.url_helpers
+    
     validates :title, presence: true
     belongs_to :user 
     has_many :steps 
@@ -15,7 +17,12 @@ class Recipe < ApplicationRecord
     accepts_nested_attributes_for :ingredients 
     accepts_nested_attributes_for :tags 
     accepts_nested_attributes_for :steps
+
+    has_one_attached :main_pic
   
+    def get_image_url
+        url_for(self.image)
+    end
     
    
 
