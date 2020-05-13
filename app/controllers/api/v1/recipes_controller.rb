@@ -6,42 +6,62 @@ class Api::V1::RecipesController < ApplicationController
         render json: @recipes
     end
 
+    def my_recipe
+        @my_recipes = Recipe.find_by(user_id: currentUser)
+        render json: @my_recipes
+    end
+
+
+
     def create 
       
-        # puts "RECIPE CREATE METHOD"
-        # new_recipe_params = {
-        #     title: params[:title], 
-        #     summary: params[:summary],
-        #     rec_steps: params[:rec_steps],
-        #     rec_tags: params[:rec_tags], 
-        #     user_id: user_id
-        # }
-     
-        @recipe = Recipe.new(recipe_params)
+         new_recipe_params = {
+            title: params[:title], 
+            summary: params[:summary],
+            rec_steps: params[:rec_steps],
+            main_pic: params[:main_pic],
+            user_id: params[:user_id]
+        }
        
-        # for ingredient in @ingredients do 
-        #     puts "DIDOFUD YOUU HIIIIIIT??????? #)(@#*R)($*UROGFUJEWLIU"
-        #     ing = Ingredient.create(ingredient)
-        #     @recipe[:ingredients] << ing 
-        #     puts "sdifjlsikfje;jf    ;oej;ria4t9ur;3RFIJEwuf"
-        #     puts @recipe
-        # end
-  
-        puts "tried to create new recipe"
-        if @recipe.valid? 
-            puts "THIS RECIPE IS VALID"
-            
-            @recipe.save 
-            render json: { recipe: RecipeSerializer.new(@recipe),  ingredients: @ingredients}
-        else 
-            render json: { error: "failed to create recipe"}, status: :not_acceptable 
+        recipe = Recipe.create(new_recipe_params)
+       
+
+        createIngredients(params[:ingredients], recipe.id)
+       createSteps(params[:steps], recipe.id)
+        createTags(params[:tags], recipe.id)
+       
+        render json: { recipe: RecipeSerializer.new(recipe)}
+    
+    end
+
+    def createIngredients(array, id)
+        recipe = Recipe.find(id)
+        array.each do |ingredient|
+            new_ingredient = Ingredient.create({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]})
+            recipe.ingredients << new_ingredient
+        end
+    end
+
+    def createSteps(array, id)
+        recipe = Recipe.find(id)
+        array.each do |step|
+            new_step = Step.create({recipe_id: id, step_summary: step[:step_summary]})
+            recipe.steps << new_step
+        end
+    end
+
+    def createTags(array, id)
+        recipe = Recipe.find(id)
+        array.each do |tag|
+            new_tag = Tag.create({recipe_id: id, name: tag})
+            recipe.tags << new_tag
         end
     end
 
     def show 
         @recipe = Recipe.find(params[:id])
         if @recipe
-            render json: @recipe 
+            render json: {recipe: @recipe, ingredients: @recipe.ingredients, tags: @recipe.tags }
         else 
             render json: { error: "That recipe does not exist...yet"}, status: :not_acceptable
         end
@@ -68,10 +88,12 @@ class Api::V1::RecipesController < ApplicationController
         end
     end
 
+
+
     private 
 
     def recipe_params 
-        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :ingredients, :rec_tags, :rec_steps, :ingredient_name)
+        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :rec_steps, :ingredient_name, :rec_steps=> [], :steps=> [], :ingredients => [], :tags => [])
     end
     
 end
