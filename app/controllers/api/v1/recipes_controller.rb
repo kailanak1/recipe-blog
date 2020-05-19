@@ -61,7 +61,7 @@ class Api::V1::RecipesController < ApplicationController
     def show 
         @recipe = Recipe.find(params[:id])
         if @recipe
-            render json: {recipe: @recipe, ingredients: @recipe.ingredients, tags: @recipe.tags }
+            render json: {recipe: @recipe, ingredients: @recipe.ingredients, tags: @recipe.tags, steps:@recipe.steps }
         else 
             render json: { error: "That recipe does not exist...yet"}, status: :not_acceptable
         end
