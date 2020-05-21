@@ -99,6 +99,21 @@ class Api::V1::RecipesController < ApplicationController
 
     end
 
+    def editSteps(array, id)
+        recipe = Recipe.find(id)
+        if recipe.ingredients
+            array.each do |ingredient|
+                if ingredient[:id]
+                    updated_ingredient = Ingredient.update({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]}) 
+                else 
+                    new_ingredient = Ingredient.create({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]})
+                    recipe.ingredients << new_ingredient
+                end 
+            end 
+        end
+
+    end
+
     def destroy 
         @recipe = Recipe.find(params[:id])
         if @recipe 
