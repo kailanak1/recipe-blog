@@ -74,8 +74,29 @@ class Api::V1::RecipesController < ApplicationController
 
     def update
         @recipe = Recipe.find(params[:id])
+
+        editIngredients(params[:ingredients], @recipe.id)
+
         @recipe.update(recipe_params)
+
         render json: @recipe
+    end
+
+    # needs to check if ingredient exists
+
+    def editIngredients(array, id)
+        recipe = Recipe.find(id)
+        if recipe.ingredients
+            array.each do |ingredient|
+                if ingredient[:id]
+                    updated_ingredient = Ingredient.update({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]}) 
+                else 
+                    new_ingredient = Ingredient.create({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]})
+                    recipe.ingredients << new_ingredient
+                end 
+            end 
+        end
+
     end
 
     def destroy 
@@ -93,7 +114,7 @@ class Api::V1::RecipesController < ApplicationController
     private 
 
     def recipe_params 
-        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :rec_steps, :ingredient_name, :rec_steps=> [], :steps=> [], :ingredients => [], :tags => [])
+        params.require(:recipe).permit(:title, :summary, :category, :main_pic, :user_id, :likes, :version, :rec_steps, :ingredient_name, :rec_steps=> [], :steps=> [], :ingredients=>[], :tags => [])
     end
     
 end
