@@ -76,13 +76,15 @@ class Api::V1::RecipesController < ApplicationController
         @recipe = Recipe.find(params[:id])
 
         editIngredients(params[:ingredients], @recipe.id)
+        editSteps(params[:steps], @recipe.id)
+        editTags(params[:tags], @recipe.id)
+
 
         @recipe.update(recipe_params)
 
         render json: @recipe
     end
 
-    # needs to check if ingredient exists
 
     def editIngredients(array, id)
         recipe = Recipe.find(id)
@@ -101,13 +103,28 @@ class Api::V1::RecipesController < ApplicationController
 
     def editSteps(array, id)
         recipe = Recipe.find(id)
-        if recipe.ingredients
-            array.each do |ingredient|
-                if ingredient[:id]
-                    updated_ingredient = Ingredient.update({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]}) 
+        if recipe.steps
+            array.each do |step|
+                if step[:id]
+                    updated_step = Step.update({recipe_id: id, step_summary: step[:step_summary]}) 
                 else 
-                    new_ingredient = Ingredient.create({recipe_id: id, name: ingredient[:name], amount: ingredient[:amount]})
-                    recipe.ingredients << new_ingredient
+                    new_step = Step.create({recipe_id: id, step_summary: step[:step_summary]})
+                    recipe.steps << new_step
+                end 
+            end 
+        end
+
+    end
+
+    def editTags(array, id)
+        recipe = Recipe.find(id)
+        if recipe.tags
+            array.each do |tag|
+                if tag[:id]
+                    updated_tag = tag.update({recipe_id: id, name: tag[:tag]}) 
+                else 
+                    new_tag = tag.create({recipe_id: id, name: tag[:name]})
+                    recipe.tags << new_tag
                 end 
             end 
         end
