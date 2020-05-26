@@ -51,7 +51,7 @@ Contributions are welcome. Submit a pull request!
 
 ## Acknowledgements
 
-Nouran Mahmoud's Tutorial Tagging from Scratch in Rails
+Nouran Mahmoud's Tutorial Tagging from Scratch in Rails.
 My classmates, instructor, and coach for all their help. 
 
 
