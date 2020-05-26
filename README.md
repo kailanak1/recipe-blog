@@ -1,7 +1,7 @@
 # README
 
 # Show Me the Recipe
-An app that just shows you recipes, not blogs. 
+Tired of scrolling through what seems like hundreds of miles of blogging just to find one recipe? **Show Me the Recipe** solves that problem by maximizing a recipe's summary to 80 characters. Aditionally, dynamic forms make it easy to add ingredients and steps. With a clean and minimal interface, you'll never need to yell at your computers **Show Me the Recipe** again!
 
 
 ## Technology Used 
@@ -12,30 +12,34 @@ An app that just shows you recipes, not blogs.
 
 ## Features
 
-The user can make an account, write recipes, and delete them. 
+The user can make an account, write recipes, edit, and delete them. 
+
+![Recipe List](images/Screen%20Shot%202020-05-25%20at%204.17.44%20PM.png)
+
+Dynamically controlled forms make it easy to add and edit your recipes.
+
+![Dynamically controlled recipe form](images/Screen%20Shot%202020-05-25%20at%204.19.21%20PM.png)
 
 ## Installation 
 
-Backend
-1) Clone the repo. 
-2) From your terminal, navigate to the folder.  
-3) From your terminal, type:
+### Backend 
+1) Go to https://github.com/kailanak1/recipe-blog
+2) Clone the repo. 
+3) From your terminal, navigate to the folder.  
+4) From your terminal, type:
     - bundle install 
     - rake db:migrate
     - rails s 
-4) From your web browswer:
+5) From your web browswer:
     - navigate to your localhost server
     - in localhost type /users/new to create an account
     - you must make a new post BEFORE navigating the site
 
-5) Enjoy :)
-
-Frontend
-
+### Frontend
 1) Go to https://github.com/kailanak1/recipe-blog-frontend
 2) Clone the repo. 
-3)  From your terminal, navigate to the folder.  
-4) Type npm install and npm start.
+3) From your terminal, navigate to the folder.  
+4) Type npm install and npm start. Your localhost port may be 3001. 
 5) Sign up for an account.
 
 ## Author
