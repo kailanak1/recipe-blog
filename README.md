@@ -28,18 +28,16 @@ Dynamically controlled forms make it easy to add and edit your recipes.
 3) From your terminal, navigate to the folder.  
 4) From your terminal, type:
     - bundle install 
-    - rake db:migrate
+    - rails db:migrate
     - rails s 
 5) From your web browswer:
-    - navigate to your localhost server
-    - in localhost type /users/new to create an account
-    - you must make a new post BEFORE navigating the site
+    - navigate to your localhost server to verify you are running Rails. Your localhost port may be 3000. 
 
 ### Frontend
 1) Go to https://github.com/kailanak1/recipe-blog-frontend
 2) Clone the repo. 
 3) From your terminal, navigate to the folder.  
-4) Type npm install and npm start. Your localhost port may be 3001. 
+4) Type npm install and npm start. You may be asked to verify that you set your localhost port to an open port (for example, 3001). 
 5) Sign up for an account.
 
 ## Author
